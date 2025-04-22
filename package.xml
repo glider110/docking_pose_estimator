@@ -3,7 +3,7 @@
   <name>docking_pose_estimator</name>
   <version>0.0.0</version>
   <description>Node for estimating docking target pose relative to AMR using ICP</description>
-  <maintainer email="user@example.com">user</maintainer>
+  <maintainer email="guoxiaofan@standard-robots.com">user</maintainer>
   <license>Apache License 2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

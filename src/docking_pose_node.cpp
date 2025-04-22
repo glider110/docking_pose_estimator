@@ -2,7 +2,7 @@
 #include <pcl/io/pcd_io.h>
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/filters/passthrough.h>
-#include <tf2_sensor_msgs/tf2_sensor_msgs.hpp>  // 修改：使用 .hpp 头文件
+#include <tf2_sensor_msgs/tf2_sensor_msgs.hpp>
 #include <cmath>
 
 DockingPoseNode::DockingPoseNode() : Node("docking_pose_node"), first_scan_(true) {
@@ -12,6 +12,7 @@ DockingPoseNode::DockingPoseNode() : Node("docking_pose_node"), first_scan_(true
   declare_parameter("pose_topic", "/docking_pose");
   declare_parameter("template_cloud_topic", "/template_cloud");
   declare_parameter("transformed_cloud_topic", "/transformed_cloud");
+  declare_parameter("aligned_cloud_topic", "/aligned_cloud");  // 新增：对齐点云话题
   declare_parameter("voxel_size", 0.05);
   declare_parameter("camera_frame", "camera_rgb_frame");
   declare_parameter("robot_frame", "base_footprint");
@@ -32,13 +33,14 @@ DockingPoseNode::DockingPoseNode() : Node("docking_pose_node"), first_scan_(true
   declare_parameter("initial_yaw", 0.0);
 
   // 获取参数
-  std::string pcd_file, pointcloud_topic, pose_topic, template_cloud_topic, transformed_cloud_topic, camera_frame, robot_frame, docking_frame;
+  std::string pcd_file, pointcloud_topic, pose_topic, template_cloud_topic, transformed_cloud_topic, aligned_cloud_topic, camera_frame, robot_frame, docking_frame;
   double voxel_size;
   get_parameter("pcd_file", pcd_file);
   get_parameter("pointcloud_topic", pointcloud_topic);
   get_parameter("pose_topic", pose_topic);
   get_parameter("template_cloud_topic", template_cloud_topic);
   get_parameter("transformed_cloud_topic", transformed_cloud_topic);
+  get_parameter("aligned_cloud_topic", aligned_cloud_topic);  // 新增：获取对齐点云话题
   get_parameter("voxel_size", voxel_size);
   get_parameter("camera_frame", camera_frame);
   get_parameter("robot_frame", robot_frame);
@@ -53,14 +55,18 @@ DockingPoseNode::DockingPoseNode() : Node("docking_pose_node"), first_scan_(true
     RCLCPP_ERROR(this->get_logger(), "Transformed cloud topic is empty! Using default: /transformed_cloud");
     transformed_cloud_topic = "/transformed_cloud";
   }
+  if (aligned_cloud_topic.empty()) {
+    RCLCPP_ERROR(this->get_logger(), "Aligned cloud topic is empty! Using default: /aligned_cloud");
+    aligned_cloud_topic = "/aligned_cloud";
+  }
 
   // 加载对接目标点云模板
   load_docking_template(pcd_file);
 
   // 设置 ICP 参数
-  icp_.setMaximumIterations(50);
-  icp_.setTransformationEpsilon(1e-8);
-  icp_.setMaxCorrespondenceDistance(0.1);
+  icp_.setMaximumIterations(150);
+  icp_.setTransformationEpsilon(1e-6);
+  icp_.setMaxCorrespondenceDistance(2);
 
   // 初始化 TF
   tf_buffer_ = std::make_shared<tf2_ros::Buffer>(this->get_clock());
@@ -73,6 +79,7 @@ DockingPoseNode::DockingPoseNode() : Node("docking_pose_node"), first_scan_(true
   pub_pose_ = create_publisher<geometry_msgs::msg::PoseStamped>(pose_topic, 10);
   pub_template_cloud_ = create_publisher<sensor_msgs::msg::PointCloud2>(template_cloud_topic, 10);
   pub_transformed_cloud_ = create_publisher<sensor_msgs::msg::PointCloud2>(transformed_cloud_topic, 10);
+  pub_aligned_cloud_ = create_publisher<sensor_msgs::msg::PointCloud2>(aligned_cloud_topic, 10);  // 新增：初始化对齐点云发布
 
   // 初始化定时器，每 1 秒发布一次模板点云
   template_publish_timer_ = create_wall_timer(
@@ -234,7 +241,7 @@ void DockingPoseNode::pointcloud_callback(const sensor_msgs::msg::PointCloud2::S
   Eigen::AngleAxisf rollAngle(initial_roll * M_PI / 180.0, Eigen::Vector3f::UnitX());
   Eigen::AngleAxisf pitchAngle(initial_pitch * M_PI / 180.0, Eigen::Vector3f::UnitY());
   Eigen::AngleAxisf yawAngle(initial_yaw * M_PI / 180.0, Eigen::Vector3f::UnitZ());
-  Eigen::Matrix3f initial_rotation = (yawAngle * pitchAngle * rollAngle).toRotationMatrix();  // 修改：使用 initial_rotation
+  Eigen::Matrix3f initial_rotation = (yawAngle * pitchAngle * rollAngle).toRotationMatrix();
   initial_guess.block<3, 3>(0, 0) = initial_rotation;
 
   // 打印初始位姿以供调试
@@ -254,9 +261,17 @@ void DockingPoseNode::pointcloud_callback(const sensor_msgs::msg::PointCloud2::S
     return;
   }
 
+  // 发布对齐后的点云
+  sensor_msgs::msg::PointCloud2 aligned_msg;
+  pcl::toROSMsg(aligned_cloud, aligned_msg);
+  aligned_msg.header.frame_id = robot_frame;
+  aligned_msg.header.stamp = msg->header.stamp;
+  pub_aligned_cloud_->publish(aligned_msg);
+  RCLCPP_INFO(this->get_logger(), "Published aligned point cloud after ICP.");
+
   Eigen::Matrix4f transform = icp_.getFinalTransformation();
 
-  Eigen::Matrix3f final_rotation = transform.block<3, 3>(0, 0);  // 修改：使用 final_rotation
+  Eigen::Matrix3f final_rotation = transform.block<3, 3>(0, 0);
   Eigen::Quaternionf quat(final_rotation);
   Eigen::Vector3f translation = transform.block<3, 1>(0, 3);
 

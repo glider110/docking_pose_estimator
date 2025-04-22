@@ -1,21 +1,22 @@
 docking_pose_node:
   ros__parameters:
     # 基本参数
-    pcd_file: "/home/std/workspace/test_pkg_ws/rtabmap_optimized.pcd"
+    # pcd_file: "/home/std/workspace/test_pkg_ws/rtabmap_optimized.pcd"
+    pcd_file: "/home/std/workspace/test_pkg_ws/template.pcd"
     pointcloud_topic: "/camera/points"
     pose_topic: "/docking_pose"
     template_cloud_topic: "/template_cloud"
     transformed_cloud_topic: "/transformed_cloud"
-    voxel_size: 0.05
+    aligned_cloud_topic: "/aligned_cloud" 
     camera_frame: "camera_rgb_frame"
     robot_frame: "base_footprint"
     docking_frame: "docking_target"
     # 滤波范围参数（单位：米）
     x_min: 0.0
-    x_max: 13.0
+    x_max: 3.0
     y_min: -1.0
     y_max: 1.0
-    z_min: 0.0
+    z_min: 0.1
     z_max: 2.0
     # 初始位姿猜测参数（平移单位：米，旋转单位：度）
     initial_x: 3.0
