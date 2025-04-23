@@ -53,7 +53,7 @@ ros2 launch docking_pose_estimator docking_pose_launch.py
 
 #### 模版制作：
 
-**1.建模软件导出stl格式，再用cloudcompare转换为pcd或者ply **
+**1.建模软件导出stl格式，再用cloudcompare转换为pcd或者ply**
 
 ![image-20250423161422258](README.assets/image-20250423161422258.png)
 
