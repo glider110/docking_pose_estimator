@@ -20,7 +20,7 @@ docking_pose_node:
     z_min: 0.1
     z_max: 2.0
     # 初始位姿猜测参数（平移单位：米，旋转单位：度）
-    initial_x: 2.0
+    initial_x: 0.0
     initial_y: 0.0
     initial_z: 0.0
     initial_roll: 0.0
