@@ -17,6 +17,7 @@ find_package(pcl_conversions REQUIRED)
 find_package(pcl_ros REQUIRED)
 find_package(PCL REQUIRED)
 find_package(tf2_sensor_msgs REQUIRED)  # Added
+find_package(std_srvs REQUIRED) # 新增
 
 include_directories(
   include
@@ -56,8 +57,9 @@ ament_target_dependencies(docking_pose_node
   pcl_conversions
   pcl_ros
   tf2_sensor_msgs
+  std_srvs
 )
-target_link_libraries(docking_pose_node ${PCL_LIBRARIES})
+target_link_libraries(docking_pose_node ${PCL_LIBRARIES} stdc++fs) # 新增：链接 filesystem
 
 install(TARGETS docking_pose_node
   DESTINATION lib/${PROJECT_NAME}

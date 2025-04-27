@@ -281,8 +281,7 @@ void DeployTargetPerception::save_command_callback(const std_msgs::msg::String::
   }
 
   // 保存转换后的模板点云
-  // std::string template_cloud_path = save_path_ + "deploy_template_cloud_" + std::to_string(timestamp) + ".pcd";
-  std::string template_cloud_path = save_path_ + "deploy_template_cloud_"  + ".pcd";
+  std::string template_cloud_path = save_path_ + "deploy_template_cloud_" + std::to_string(timestamp) + ".pcd";
   if (pcl::io::savePCDFileASCII(template_cloud_path, *last_deployed_template_) == -1) {
     RCLCPP_ERROR(this->get_logger(), "Failed to save deployed template point cloud to: %s", template_cloud_path.c_str());
   } else {
