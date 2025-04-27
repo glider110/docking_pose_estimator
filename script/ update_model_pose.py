@@ -74,8 +74,10 @@ def main(args=None):
 
     # 创建节点并设置位姿
     node = ModelPoseUpdater()
-    node.set_model_pose('cart_model2_no_whell', 4.0, 0.0, 0.0, 180.0)
+    # node.set_model_pose('cart_model2_no_whell', 4.0, 0.0, 0.0, 180.0)
+    # node.set_model_pose('cart_model2_no_whell', 3.5 -0.262, 0.0, 180.0)
     # node.set_model_pose('waffle', 3.0, 0.0, 0.0, 180.0)
+    node.set_model_pose('waffle',3.5 ,-0.262, 0.0, 0.0)
 
     # 销毁节点并关闭 ROS 2
     node.destroy_node()

@@ -8,6 +8,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
@@ -22,6 +23,28 @@ include_directories(
   ${PCL_INCLUDE_DIRS}
 )
 
+
+#目标感知对接部署
+add_executable(deploy_target_perception src/deploy_target_perception.cpp)
+ament_target_dependencies(deploy_target_perception
+  rclcpp
+  std_msgs
+  sensor_msgs
+  geometry_msgs
+  tf2
+  tf2_ros
+  tf2_geometry_msgs
+  pcl_conversions
+  pcl_ros
+  tf2_sensor_msgs
+)
+target_link_libraries(deploy_target_perception ${PCL_LIBRARIES})
+
+install(TARGETS deploy_target_perception
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+#目标感知位姿估计
 add_executable(docking_pose_node src/docking_pose_node.cpp)
 ament_target_dependencies(docking_pose_node
   rclcpp
@@ -39,6 +62,7 @@ target_link_libraries(docking_pose_node ${PCL_LIBRARIES})
 install(TARGETS docking_pose_node
   DESTINATION lib/${PROJECT_NAME}
 )
+
 
 install(DIRECTORY include/
   DESTINATION include/
