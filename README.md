@@ -2,7 +2,9 @@
 
 > 对接载具人为计算提取特征的方式在AMR行业过繁琐，不能适用大部份载具，此功能包用icp的方式匹配以概率的形式进行迭代估计载具的位姿
 
+#### 方案设计：
 
+[**自然特征巡航对接（研发专项）**](https://standard-robots.yuque.com/group-rd/fgx8kc/mbwxz1ladbbry9ef)
 
 #### 运行：
 
@@ -22,22 +24,32 @@ export TURTLEBOT3_MODEL=waffle
 ros2 launch turtlebot3_gazebo turtlebot3_amr_world.launch.py
 ```
 
-2.位姿估计节点
+2.感知目标部署节点（部署点对齐）
+
+```
+ros2 launch docking_pose_estimator deploy_target_perception.py
+ros2 topic pub /save_pointcloud_command std_msgs/String "data: 'save'"   #保存部署点云文件
+```
+
+3.位姿估计节点
 
 ```
 ros2 launch docking_pose_estimator docking_pose_launch.py
 ```
+
+4.导航到部署点
+
+```
+
+```
+
+
 
 **真机环境：**
 
 
 
 
-
-#### 问题：
-
-- 模版全局不够问题
-- 地面的影响
 
 
 

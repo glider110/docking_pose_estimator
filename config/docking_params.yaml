@@ -3,7 +3,8 @@ docking_pose_node:
     # 基本参数
     # pcd_file: "/home/std/workspace/test_pkg_ws/rtabmap_optimized.pcd"
     # pcd_file: "/home/std/workspace/test_pkg_ws/src/docking_pose_estimator/template/template.pcd"
-    pcd_file: "/home/std/workspace/test_pkg_ws/src/docking_pose_estimator/template/depoly.pcd"    #部署标准点云模版
+    # pcd_file: "/home/std/workspace/test_pkg_ws/src/docking_pose_estimator/template/depoly.pcd"    #部署标准点云模版
+    pcd_file: "/home/std/workspace/test_pkg_ws/src/docking_pose_estimator/template/deploy/deploy_template_cloud_.pcd"    #部署标准点云模版
     pointcloud_topic: "/camera/points"
     pose_topic: "/docking_pose"
     template_cloud_topic: "/template_cloud"
@@ -18,7 +19,7 @@ docking_pose_node:
     y_min: -1.0
     y_max: 1.0
     z_min: 0.1
-    z_max: 2.0
+    z_max: 1.5
     # 初始位姿猜测参数（平移单位：米，旋转单位：度）
     initial_x: 0.0
     initial_y: 0.0

@@ -122,36 +122,6 @@ Visualization Manager:
           Value: true
         base_scan:
           Value: false
-        camera_01_color_frame:
-          Value: true
-        camera_01_color_optical_frame:
-          Value: true
-        camera_01_depth_frame:
-          Value: true
-        camera_01_depth_optical_frame:
-          Value: true
-        camera_01_link:
-          Value: true
-        camera_02_color_frame:
-          Value: true
-        camera_02_color_optical_frame:
-          Value: true
-        camera_02_depth_frame:
-          Value: true
-        camera_02_depth_optical_frame:
-          Value: true
-        camera_02_link:
-          Value: true
-        camera_03_color_frame:
-          Value: true
-        camera_03_color_optical_frame:
-          Value: true
-        camera_03_depth_frame:
-          Value: true
-        camera_03_depth_optical_frame:
-          Value: true
-        camera_03_link:
-          Value: true
         camera_depth_frame:
           Value: false
         camera_depth_optical_frame:
@@ -166,39 +136,9 @@ Visualization Manager:
           Value: false
         caster_back_right_link:
           Value: false
-        head_camera_color_frame:
-          Value: true
-        head_camera_color_optical_frame:
-          Value: true
-        head_camera_depth_frame:
-          Value: true
-        head_camera_depth_optical_frame:
-          Value: true
-        head_camera_link:
-          Value: true
         imu_link:
           Value: false
-        left_camera_color_frame:
-          Value: true
-        left_camera_color_optical_frame:
-          Value: true
-        left_camera_depth_frame:
-          Value: true
-        left_camera_depth_optical_frame:
-          Value: true
-        left_camera_link:
-          Value: true
         odom:
-          Value: true
-        right_camera_color_frame:
-          Value: true
-        right_camera_color_optical_frame:
-          Value: true
-        right_camera_depth_frame:
-          Value: true
-        right_camera_depth_optical_frame:
-          Value: true
-        right_camera_link:
           Value: true
         wheel_left_link:
           Value: false
@@ -210,28 +150,29 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
+        base_footprint:
+          base_link:
+            base_scan:
+              {}
+            camera_link:
+              camera_depth_frame:
+                camera_depth_optical_frame:
+                  {}
+              camera_rgb_frame:
+                camera_rgb_optical_frame:
+                  {}
+            caster_back_left_link:
+              {}
+            caster_back_right_link:
+              {}
+            imu_link:
+              {}
+            wheel_left_link:
+              {}
+            wheel_right_link:
+              {}
         odom:
-          base_footprint:
-            base_link:
-              base_scan:
-                {}
-              camera_link:
-                camera_depth_frame:
-                  camera_depth_optical_frame:
-                    {}
-                camera_rgb_frame:
-                  camera_rgb_optical_frame:
-                    {}
-              caster_back_left_link:
-                {}
-              caster_back_right_link:
-                {}
-              imu_link:
-                {}
-              wheel_left_link:
-                {}
-              wheel_right_link:
-                {}
+          {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -396,25 +337,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 2.2223756313323975
+      Distance: 10.338022232055664
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.5004297494888306
-        Y: -0.47769948840141296
-        Z: 0.8952292203903198
+        X: 2.372896432876587
+        Y: -0.6191645860671997
+        Z: 1.0817456245422363
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.36479651927948
+      Pitch: 0.3697974979877472
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz_default_plugins)
-      Yaw: 3.9496841430664062
+      Yaw: 4.199694633483887
     Saved: ~
 Window Geometry:
   Displays:

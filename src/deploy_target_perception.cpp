@@ -124,9 +124,9 @@ DeployTargetPerception::DeployTargetPerception() : Node("deploy_target_perceptio
   RCLCPP_INFO(this->get_logger(), "Template point cloud after pass-through filter: %ld points.", filtered_template_cloud_->size());
 
   // 设置 ICP 参数（使用裁剪后的模板点云）
-  icp_.setMaximumIterations(150);
+  icp_.setMaximumIterations(250);
   icp_.setTransformationEpsilon(1e-6);
-  icp_.setMaxCorrespondenceDistance(2.0);
+  icp_.setMaxCorrespondenceDistance(3.0);
   icp_.setInputTarget(filtered_template_cloud_);
 
   // 设置 NDT 参数（如果启用，使用裁剪后的模板点云）
@@ -281,7 +281,8 @@ void DeployTargetPerception::save_command_callback(const std_msgs::msg::String::
   }
 
   // 保存转换后的模板点云
-  std::string template_cloud_path = save_path_ + "deploy_template_cloud_" + std::to_string(timestamp) + ".pcd";
+  // std::string template_cloud_path = save_path_ + "deploy_template_cloud_" + std::to_string(timestamp) + ".pcd";
+  std::string template_cloud_path = save_path_ + "deploy_template_cloud_"  + ".pcd";
   if (pcl::io::savePCDFileASCII(template_cloud_path, *last_deployed_template_) == -1) {
     RCLCPP_ERROR(this->get_logger(), "Failed to save deployed template point cloud to: %s", template_cloud_path.c_str());
   } else {
