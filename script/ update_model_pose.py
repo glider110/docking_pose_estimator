@@ -77,8 +77,16 @@ def main(args=None):
     # node.set_model_pose('cart_model2_no_whell', 4.0, 0.0, 0.0, 180.0)
     # node.set_model_pose('cart_model2_no_whell', 3.5 -0.262, 0.0, 180.0)
     # node.set_model_pose('waffle', 3.0, 0.0, 0.0, 180.0)
+    
+    #部署位姿点
     # node.set_model_pose('waffle',3.2 ,-0.262, 0.0, 0.0)
-    node.set_model_pose('waffle',2.0 ,-0.262, 0.0, 0.0)
+    #标准场景
+    # node.set_model_pose('waffle',2.5,-0.262, 0.0, 0.0)
+    # node.set_model_pose('cart_model2_no_whell', 4.0, 0.0, 0.0, 180.0)
+
+    #偏移场景
+    node.set_model_pose('waffle',2.5,-0.262, 0.0, 0.0)
+    node.set_model_pose('cart_model2_no_whell', 4.0, -0.262201, 0.0, 170)
 
     # 销毁节点并关闭 ROS 2
     node.destroy_node()

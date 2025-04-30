@@ -10,7 +10,7 @@ class PointCloudSaver(Node):
         super().__init__('pointcloud_saver')
         self.subscription = self.create_subscription(
             PointCloud2,
-            '/cloud_map',
+            '/camera/points',
             self.listener_callback,
             10)
         self.count = 0
@@ -24,7 +24,7 @@ class PointCloudSaver(Node):
             rclpy.shutdown()
 
     def save_to_pcd(self, points):
-        output_file = os.path.expanduser("./rtabmap_optimized1.pcd")
+        output_file = os.path.expanduser("./points.pcd")
         with open(output_file, 'w') as f:
             f.write("# .PCD v0.7 - Point Cloud Data file format\n")
             f.write("VERSION 0.7\n")

@@ -333,7 +333,7 @@ void DockingPoseNode::pointcloud_callback(const sensor_msgs::msg::PointCloud2::S
                 initial_x, initial_y, initial_z, initial_roll, initial_pitch, initial_yaw);
   } else {
     // 使用前一次配准结果作为初始猜测
-    initial_guess = last_transform_;
+    // initial_guess = last_transform_;
     Eigen::Matrix3f rotation = last_transform_.block<3, 3>(0, 0);
     Eigen::Quaternionf quat(rotation);
     Eigen::Vector3f translation = last_transform_.block<3, 1>(0, 3);
