@@ -1,2 +1,5 @@
-template/deploy/deploy_pose_cloud_*
+template/deploy/** 
 template/deploy/deploy_template_cloud_*
+3dgs/output_0002.png
+3dgs/rack/
+3dgs/
