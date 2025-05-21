@@ -3,3 +3,6 @@ template/deploy/deploy_template_cloud_*
 3dgs/output_0002.png
 3dgs/rack/
 3dgs/
+script/__pycache__/
+script/__pycache__/simple_navigator.cpython-310.pyc
+data/bag/

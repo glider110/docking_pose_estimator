@@ -1,0 +1,33 @@
+deploy_target_perception:
+  ros__parameters:
+    pcd_file: "/home/std/workspace/test_pkg_ws/src/docking_pose_estimator/template/deploy/box_nerf_origin.pcd"    #部署标准点云模版
+    pointcloud_topic: "/camera/depth/points"
+    deployed_template_cloud_topic: "/deployed_template_cloud"
+    filtered_source_cloud_topic: "/filtered_source_cloud"
+    save_command_topic: "/save_pointcloud_command"
+    save_path: "/home/std/workspace/test_pkg_ws/src/docking_pose_estimator/template/deploy/"
+    voxel_size: 0.01
+    camera_frame: "camera_depth_optical_frame"
+    robot_frame: "base_footprint"
+    # 实时点云滤波参数
+    x_min: 0.0
+    x_max: 1.5
+    y_min: -0.6
+    y_max: 0.6
+    z_min: 0.1
+    z_max: 0.5
+    # 模板点云滤波参数
+    template_x_min: 0.0
+    template_x_max: 0.1
+    template_y_min: -1.0
+    template_y_max: 1.0
+    template_z_min: 0.0
+    template_z_max: 0.4
+    # 初始位姿
+    initial_x: 0.0
+    initial_y: 0.0
+    initial_z: 0.0
+    initial_roll: 0.0
+    initial_pitch: 0.0
+    initial_yaw: 0.0
+    use_ndt: true

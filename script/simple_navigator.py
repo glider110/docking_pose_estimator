@@ -24,7 +24,7 @@ class SimpleNavigator(Node):
         self.linear_speed = 0.1
         self.angular_speed = 0.1
         self.distance_tolerance = 0.03
-        self.angle_tolerance = math.radians(3)  # 约 ±5°
+        self.angle_tolerance = math.radians(0.5)  # 约 ±5°
 
         # 当前位姿
         self.current_x = 0.0

@@ -37,10 +37,15 @@ ros2 topic pub /save_pointcloud_command std_msgs/String "data: 'save'"   #保存
 ros2 launch docking_pose_estimator docking_pose_launch.py
 ```
 
-4.导航到部署点
+4.导航到部署点(对接点)
 
 ```
-
+#模拟更新小车或者载具的位姿
+#偏移场景 ('waffle',2.5,-0.262, 0.0, 0.0)('cart_model2_no_whell', 4.5, -0.262201, 0.0, 170) 
+cd src/docking_pose_estimator/script
+python3 update_model_pose.py
+#运行两阶段导航
+python3 move_to_dock_pose.py
 ```
 
 

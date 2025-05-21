@@ -88,9 +88,9 @@ def main(args=None):
     # node.set_model_pose('waffle',2.5,-0.262, 0.0, 0.0)
     # node.set_model_pose('cart_model2_no_whell', 4.0, -0.262201, 0.0, 170)
     
-    #偏移场景二
+    #偏移场景
     node.set_model_pose('waffle',2.5,-0.262, 0.0, 0.0)
-    node.set_model_pose('cart_model2_no_whell', 4.0, -0.262201, 0.0, 190)
+    node.set_model_pose('cart_model2_no_whell', 4.5, -0.262201, 0.0, 170)
 
     # 销毁节点并关闭 ROS 2
     node.destroy_node()
