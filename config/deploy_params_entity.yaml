@@ -1,4 +1,4 @@
-deploy_target_perception:
+deploy_target_perception_entity:
   ros__parameters:
     pcd_file: "/home/std/workspace/test_pkg_ws/src/docking_pose_estimator/template/deploy/box_nerf_origin.pcd"    #部署标准点云模版
     pointcloud_topic: "/camera/depth/points"

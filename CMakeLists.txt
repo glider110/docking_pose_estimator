@@ -84,4 +84,16 @@ install(DIRECTORY config
 install(DIRECTORY rviz
   DESTINATION share/${PROJECT_NAME}
 )
+
+# 安装 template 文件
+install(DIRECTORY template
+  DESTINATION share/${PROJECT_NAME}
+)
+
+# 安装 script 文件
+install(DIRECTORY script
+  DESTINATION share/${PROJECT_NAME}
+  USE_SOURCE_PERMISSIONS  # 保持脚本的执行权限
+)
+
 ament_package()

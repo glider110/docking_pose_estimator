@@ -1,11 +1,12 @@
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, ExecuteProcess
-from launch.substitutions import LaunchConfiguration
+from launch.actions import DeclareLaunchArgument, ExecuteProcess, IncludeLaunchDescription
+from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
-from launch.conditions import IfCondition
+from launch.conditions import IfCondition, UnlessCondition
 from launch.actions import LogInfo
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 def generate_launch_description():
     # 获取包的路径
@@ -48,7 +49,7 @@ def generate_launch_description():
     deploy_target_perception = Node(
         package='docking_pose_estimator',
         executable='deploy_target_perception',
-        name='deploy_target_perception',
+        name='deploy_target_perception_entity',
         output='screen',
         parameters=[LaunchConfiguration('params_file')]
     )
@@ -78,6 +79,15 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('use_bag'))
     )
 
+    # 添加 Orbbec 相机启动文件
+    orbbec_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            get_package_share_directory('orbbec_camera'),
+            '/launch/dabai_dcw2.launch.py'
+        ]),
+        condition=UnlessCondition(LaunchConfiguration('use_bag'))
+    )
+
     # 返回 LaunchDescription
     return LaunchDescription([
         params_file_arg,
@@ -85,6 +95,7 @@ def generate_launch_description():
         use_bag,
         static_transform_node,
         bag_play,
+        orbbec_launch,
         deploy_target_perception,
         rviz_node
     ])

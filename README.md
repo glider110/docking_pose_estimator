@@ -8,49 +8,72 @@
 
 #### 运行：
 
-**编译：**
+**0.编译：**
 
 ```
 colcon build --symlink-install --packages-select docking_pose_estimator、
 source install/setup.zsh
 ```
 
-**仿真环境：**
+**1.运行仿真环境：**
 
-1.运行turtlebot3仿真环境
+1. 运行turtlebot3仿真环境
 
-```
-export TURTLEBOT3_MODEL=waffle
-ros2 launch turtlebot3_gazebo turtlebot3_amr_world.launch.py
-```
+   ```
+   export TURTLEBOT3_MODEL=waffle
+   ros2 launch turtlebot3_gazebo turtlebot3_amr_world.launch.py
+   ```
+   
+1. 感知目标部署节点（部署点对齐）
 
-2.感知目标部署节点（部署点对齐）
+   ```
+   ros2 launch docking_pose_estimator deploy_target_perception.py
+   ros2 topic pub /save_pointcloud_command std_msgs/String "data: 'save'"   #保存部署点云文件
+   ```
+   
+1. 位姿估计节点
 
-```
-ros2 launch docking_pose_estimator deploy_target_perception.py
-ros2 topic pub /save_pointcloud_command std_msgs/String "data: 'save'"   #保存部署点云文件
-```
+   ```
+   ros2 launch docking_pose_estimator docking_pose_launch.py
+   ```
+   
+1. 导航到部署点(对接点)
 
-3.位姿估计节点
-
-```
-ros2 launch docking_pose_estimator docking_pose_launch.py
-```
-
-4.导航到部署点(对接点)
-
-```
-#模拟更新小车或者载具的位姿
-#偏移场景 ('waffle',2.5,-0.262, 0.0, 0.0)('cart_model2_no_whell', 4.5, -0.262201, 0.0, 170) 
-cd src/docking_pose_estimator/script
-python3 update_model_pose.py
-#运行两阶段导航
-python3 move_to_dock_pose.py
-```
+   ```
+   #模拟更新小车或者载具的位姿
+   #偏移场景 ('waffle',2.5,-0.262, 0.0, 0.0)('cart_model2_no_whell', 4.5, -0.262201, 0.0, 170) 
+   cd src/docking_pose_estimator/script
+   python3 update_model_pose.py
+   #运行两阶段导航
+   python3 move_to_dock_pose.py
+   ```
 
 
 
-**真机环境：**
+**2.运行真机环境：**
+
+1. 感知目标部署节点（部署点对齐）
+
+   ```
+   #use_bag为true读取bag文件  false实时读取大黑驱动数据
+   ros2 launch docking_pose_estimator deploy_target_perception_entity_launch.py use_bag:=1
+   ros2 topic pub /save_pointcloud_command std_msgs/String "data: 'save'"   #保存部署点云文件
+   ```
+
+2. 位姿估计节点
+
+   ```
+   #use_bag为true读取bag文件  false实时读取大黑驱动数据
+   ros2 launch docking_pose_estimator docking_pose_entity_launch.py use_bag:=1
+   ```
+
+   
+
+
+
+
+
+
 
 
 
