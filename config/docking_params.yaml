@@ -1,7 +1,7 @@
 docking_pose_node:
   ros__parameters:
     pcd_file: "" # 空字符串，自动查找最新模板
-    pcd_dir: "/home/std/workspace/test_pkg_ws/src/docking_pose_estimator/template/deploy" # 部署模板目录
+    pcd_dir: "/home/std/workspace/test_pkg_ws/src/docking_pose_estimator/template/deploy/" # 部署模板目录
     pointcloud_topic: "/camera/points"
     pose_topic: "/docking_pose"
     template_cloud_topic: "/template_cloud"

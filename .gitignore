@@ -6,3 +6,4 @@ template/deploy/deploy_template_cloud_*
 script/__pycache__/
 script/__pycache__/simple_navigator.cpython-310.pyc
 data/bag/
+template/temp/box_nerf_1.bin
